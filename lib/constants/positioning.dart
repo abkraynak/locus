@@ -7,6 +7,9 @@ class Elevations {
 class Paddings {
   static double hor = 20.0;
   static double ver = 10.0;
+
+  static double logoHor = 50.0;
+  static double logoVer = 20.0;
 }
 
 class Radius {

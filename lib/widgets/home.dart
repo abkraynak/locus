@@ -10,9 +10,12 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          Container(
-            child: Image.asset('assets/logo/locus_transparent.png'),
-          ),
+          Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: Paddings.logoVer, horizontal: Paddings.logoHor),
+              child: Container(
+                child: Image.asset('assets/logo/locus_transparent.png'),
+              )),
           Card(
               child: ListTile(
                   title: const Text('Welcome to Locus'),
@@ -25,8 +28,8 @@ class Home extends StatelessWidget {
               child: Text('Start Scan', style: ElevatedButtons.mainTextStyle),
               style: ElevatedButtons.mainButtonStyle,
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => DevPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DevPage()));
               },
             ),
           ),

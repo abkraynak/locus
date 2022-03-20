@@ -13,13 +13,13 @@ class Home extends StatelessWidget {
           Card(
               child: ListTile(
                   title: const Text('Welcome to Locus'),
-                  subtitle: const Text('Version 0.1.0'),
+                  subtitle: const Text('Tap "Start Scan" to begin. Let\'s go!'),
                   onTap: () {})),
           Padding(
             padding: EdgeInsets.symmetric(
                 vertical: Paddings.ver, horizontal: Paddings.hor),
             child: ElevatedButton(
-              child: Text('Developer', style: ElevatedButtons.mainTextStyle),
+              child: Text('Start Scan', style: ElevatedButtons.mainTextStyle),
               style: ElevatedButtons.mainButtonStyle,
               onPressed: () {
                 Navigator.push(

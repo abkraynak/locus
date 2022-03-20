@@ -14,6 +14,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.0
+
+flutter_icons:
+  image_path: "assets/icon/locus.jpg"
+  android: true
+  ios: true
 
 flutter:
   uses-material-design: true

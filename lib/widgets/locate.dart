@@ -4,7 +4,7 @@ import '../functions/bluetooth_scanning.dart';
 import '../models/device.dart';
 import '../constants/positioning.dart';
 
-class Dev extends StatelessWidget {
+class Locate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

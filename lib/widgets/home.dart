@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../constants/buttons.dart';
+import '../constants/page_titles.dart';
 import '../constants/positioning.dart';
-import '../pages/dev.dart';
+import '../pages/locate.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -19,17 +20,17 @@ class Home extends StatelessWidget {
           Card(
               child: ListTile(
                   title: const Text('Welcome to Locus'),
-                  subtitle: const Text('Tap "Start Scan" to begin. Let\'s go!'),
+                  subtitle: const Text('Tap "Locate" to begin. Let\'s go!'),
                   onTap: () {})),
           Padding(
             padding: EdgeInsets.symmetric(
                 vertical: Paddings.ver, horizontal: Paddings.hor),
             child: ElevatedButton(
-              child: Text('Start Scan', style: ElevatedButtons.mainTextStyle),
+              child: Text(PageTitles.locate, style: ElevatedButtons.mainTextStyle),
               style: ElevatedButtons.mainButtonStyle,
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DevPage()));
+                    MaterialPageRoute(builder: (context) => LocatePage()));
               },
             ),
           ),

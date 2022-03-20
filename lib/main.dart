@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'constants/colors.dart';
 import 'constants/route_names.dart';
-import 'pages/dev.dart';
+import 'pages/locate.dart';
 import 'pages/home.dart';
 import 'widgets/app_route_observer.dart';
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [AppRouteObserver()],
       routes: {
         RouteNames.home: (context) => HomePage(),
-        RouteNames.dev: (context) => DevPage(),
+        RouteNames.locate: (context) => LocatePage(),
       },
     );
   }

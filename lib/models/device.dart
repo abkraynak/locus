@@ -4,9 +4,9 @@ class Device {
   List<int> RSSIValues;
   String id;
   String name;
-  int staleCounter;
+  int counter;
 
-  Device(int firstRSSI, this.id, this.name, this.staleCounter){
+  Device(int firstRSSI, this.id, this.name, this.counter){
     RSSIValues = [];
     addRSSIValue(firstRSSI);
   }

@@ -10,6 +10,9 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: <Widget>[
+          Container(
+            child: Image.asset('assets/logo/locus_transparent.png'),
+          ),
           Card(
               child: ListTile(
                   title: const Text('Welcome to Locus'),

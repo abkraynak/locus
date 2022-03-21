@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'constants/colors.dart';
 import 'constants/route_names.dart';
-import 'pages/locate.dart';
 import 'pages/home.dart';
+import 'pages/locate.dart';
 import 'widgets/app_route_observer.dart';
 
 void main() {

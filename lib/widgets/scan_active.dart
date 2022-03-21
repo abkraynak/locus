@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:locus/constants/positioning.dart';
-import 'package:locus/functions/bluetooth_scanning.dart';
 
+import '../constants/positioning.dart';
+import '../functions/bluetooth_scanning.dart';
 import '../models/device.dart';
 
 class ScanActive extends StatefulWidget {
@@ -26,7 +26,7 @@ class _ScanActiveState extends State<ScanActive> {
               if (!snapshot.hasError && snapshot.hasData) {
                 if (snapshot.data.device.name.length < 1 &&
                     snapshot.data.advertisementData.connectable) {
-                  snapshot.data.device.connect();
+                  //snapshot.data.device.connect();
                 }
 
                 if (snapshot.data.device.name.contains('iPhone') ||

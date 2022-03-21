@@ -55,8 +55,7 @@ class _ScanActiveState extends State<ScanActive> {
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("${getMinDistance(deviceList)} feet away",
-                        textScaleFactor: 1.5),
+                    distanceText(getMinDistance(deviceList)),
                     Text('${deviceList.length} nearby devices'),
                   ]);
             }));
@@ -79,6 +78,6 @@ double getMinDistance(List<Device> deviceList) {
 }
 
 Text distanceText(double distance) {
-  return Text("Distance: ${metersToFeet(distance).toStringAsFixed(2)} ft",
-      textScaleFactor: 1.2);
+  return Text("${metersToFeet(distance).toStringAsFixed(2)} feet away",
+      textScaleFactor: 1.5);
 }

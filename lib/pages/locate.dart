@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:locus/constants/positioning.dart';
+import 'package:locus/widgets/scan_active.dart';
 
 import '../constants/page_titles.dart';
-import '../widgets/locate.dart';
+import '../widgets/scan_inactive.dart';
 
 class LocatePage extends StatefulWidget {
   @override
@@ -21,20 +23,24 @@ class _LocatePageState extends State<LocatePage> {
           title: Text(PageTitles.locate),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.search),
-          tooltip: 'Scan',
+          child: isScanning ? Icon(Icons.portable_wifi_off_outlined) : Icon(Icons.wifi_tethering_outlined),
+          tooltip: isScanning ? 'Stop Scan' : 'Scan',
           onPressed: () {
             setState(() {
               isScanning = toggleScan(isScanning, flutterBlue);
             });
           },
         ),
-        body: Locate());
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Paddings.hor, vertical: Paddings.ver),
+          child: isScanning ? ScanActive(results: flutterBlue.scan(allowDuplicates: true)) : ScanInactive(),
+        ));
   }
 }
 
-bool toggleScan(bool isScanning, FlutterBlue flutterBlue){
-  if(isScanning){
+bool toggleScan(bool isScanning, FlutterBlue flutterBlue) {
+  if (isScanning) {
     flutterBlue.stopScan();
     return false;
   }

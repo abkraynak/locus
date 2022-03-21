@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/page_titles.dart';
-import '../widgets/home.dart';
+import '../widgets/home_display.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,6 +15,6 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(PageTitles.home),
         ),
-        body: Home());
+        body: HomeDisplay());
   }
 }

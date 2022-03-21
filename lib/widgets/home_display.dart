@@ -5,7 +5,7 @@ import '../constants/page_titles.dart';
 import '../constants/positioning.dart';
 import '../pages/locate.dart';
 
-class Home extends StatelessWidget {
+class HomeDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

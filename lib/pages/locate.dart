@@ -48,6 +48,5 @@ bool toggleScan(bool isScanning, FlutterBlue flutterBlue) {
     flutterBlue.stopScan();
     return false;
   }
-  flutterBlue.startScan();
   return true;
 }

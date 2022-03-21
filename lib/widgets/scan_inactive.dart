@@ -10,8 +10,9 @@ class _ScanInactiveState extends State<ScanInactive> {
   Widget build(BuildContext context) {
     return Center(
         child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Scanning is off"),
+        Text("Scanning is off", textScaleFactor: 1.5),
         Text("Tap the icon below to start scanning")
       ],
     ));

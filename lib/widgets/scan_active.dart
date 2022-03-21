@@ -24,57 +24,40 @@ class _ScanActiveState extends State<ScanActive> {
             stream: results,
             builder: (context, snapshot) {
               if (!snapshot.hasError && snapshot.hasData) {
-                if (snapshot.data.device.name.length < 1 &&
-                    snapshot.data.advertisementData.connectable) {
-                  //snapshot.data.device.connect();
-                }
+                var newDevice = true;
+                var toRemove = [];
+                var signal = new Device(
+                    snapshot.data.rssi,
+                    snapshot.data.device.id.toString(),
+                    snapshot.data.device.name,
+                    0);
 
-                if (snapshot.data.device.name.contains('iPhone') ||
-                    snapshot.data.device.name.contains('Android')) {
-                  var newDevice = true;
-                  var toRemove = [];
-                  var signal = new Device(
-                      snapshot.data.rssi,
-                      snapshot.data.device.id.toString(),
-                      snapshot.data.device.name,
-                      0);
-
-                  deviceList.forEach((element) {
-                    if (element.id == signal.id) {
-                      element.addRSSIValue(signal.RSSILast);
-                      element.name = signal.name;
-                      newDevice = false;
-                    } else {
-                      element.counter++;
-                      if (element.counter > 50) {
-                        toRemove.add(element);
-                      }
+                deviceList.forEach((element) {
+                  if (element.id == signal.id) {
+                    element.addRSSIValue(signal.RSSILast);
+                    element.name = signal.name;
+                    newDevice = false;
+                  } else {
+                    element.counter++;
+                    if (element.counter > 50) {
+                      toRemove.add(element);
                     }
-                  });
-
-                  deviceList
-                      .removeWhere((element) => toRemove.contains(element));
-
-                  if (newDevice) {
-                    deviceList.add(signal);
                   }
+                });
+
+                deviceList.removeWhere((element) => toRemove.contains(element));
+
+                if (newDevice) {
+                  deviceList.add(signal);
                 }
               }
 
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('${deviceList.length} nearby devices',
+                    Text("${getMinDistance(deviceList)} feet away",
                         textScaleFactor: 1.5),
-                    Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: Paddings.ver, horizontal: Paddings.hor)),
-                    Flexible(
-                        child: FractionallySizedBox(
-                      widthFactor: 0.6,
-                      heightFactor: 0.7,
-                      // child: Progress(deviceList: deviceList)
-                    ))
+                    Text('${deviceList.length} nearby devices'),
                   ]);
             }));
   }
@@ -99,4 +82,3 @@ Text distanceText(double distance) {
   return Text("Distance: ${metersToFeet(distance).toStringAsFixed(2)} ft",
       textScaleFactor: 1.2);
 }
-

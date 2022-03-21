@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
-import '../constants/positioning.dart';
 import '../functions/bluetooth_scanning.dart';
 import '../models/device.dart';
 
@@ -32,6 +31,8 @@ class _ScanActiveState extends State<ScanActive> {
                     snapshot.data.device.name,
                     0);
 
+                print(snapshot.data.device.id.toString() + snapshot.data.device.name);
+
                 deviceList.forEach((element) {
                   if (element.id == signal.id) {
                     element.addRSSIValue(signal.RSSILast);
@@ -47,7 +48,7 @@ class _ScanActiveState extends State<ScanActive> {
 
                 deviceList.removeWhere((element) => toRemove.contains(element));
 
-                if (newDevice) {
+                if (newDevice && signal.id == "C3435E79-9EAA-AC23-10F0-DFF9AF523A73") {
                   deviceList.add(signal);
                 }
               }

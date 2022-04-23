@@ -14,32 +14,54 @@ class LocatePage extends StatefulWidget {
 class _LocatePageState extends State<LocatePage> {
   bool isScanning = false;
 
+  String dropdownValue = "Find a location";
+
   @override
   Widget build(BuildContext context) {
     FlutterBlue flutterBlue = FlutterBlue.instance;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(PageTitles.locate),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: isScanning
-              ? Icon(Icons.portable_wifi_off_outlined)
-              : Icon(Icons.wifi_tethering_outlined),
-          tooltip: isScanning ? 'Stop Scan' : 'Scan',
-          onPressed: () {
-            setState(() {
-              isScanning = toggleScan(isScanning, flutterBlue);
-            });
-          },
-        ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Paddings.hor, vertical: Paddings.ver),
-          child: isScanning
-              ? ScanActive(results: flutterBlue.scan(allowDuplicates: true))
-              : ScanInactive(),
-        ));
+      appBar: AppBar(
+        title: Text(PageTitles.locate),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: isScanning
+            ? Icon(Icons.portable_wifi_off_outlined)
+            : Icon(Icons.wifi_tethering_outlined),
+        tooltip: isScanning ? 'Stop Scan' : 'Scan',
+        onPressed: () {
+          setState(() {
+            isScanning = toggleScan(isScanning, flutterBlue);
+          });
+        },
+      ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Paddings.hor, vertical: Paddings.ver),
+            child: isScanning
+                ? ScanActive(results: flutterBlue.scan(allowDuplicates: true))
+                : ScanInactive(),
+          ),
+          DropdownButton(
+            value: dropdownValue,
+            items: <String>["Find a location", "Shalala Student Center", "McArthur Engineering",]
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (String newValue) {
+              setState(() {
+                dropdownValue = newValue;
+              });
+            },
+          )
+        ],
+      ),
+    );
   }
 }
 

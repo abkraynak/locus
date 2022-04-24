@@ -17,12 +17,9 @@ class _LocatePageState extends State<LocatePage> {
 
   Locations locs = Locations();
   List<String> _locations = ["Select location"];
-  List<String> _zones = ["Select zone"];
-
   String _selectedLocation = "Select location";
+  List<String> _zones = ["Select zone"];
   String _selectedZone = "Select zone";
-
-  String dropdownValue = "Find a location";
 
   @override
   void initState() {
@@ -77,10 +74,31 @@ class _LocatePageState extends State<LocatePage> {
               );
             }).toList(),
             onChanged: (value) => _onSelectedZone(value),
-          )
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: Paddings.logoVer, horizontal: Paddings.logoHor),
+              child: Container(
+                child: Image.asset(_getImagePath()),
+              )),
         ],
       ),
     );
+  }
+
+  String _getImagePath() {
+    if (_selectedZone == "Select zone"){
+      String p = "assets/zones/blank_floor.jpg";
+      //print(p);
+      return p;
+    }
+    else {
+      String path = "assets/zones/" + _selectedLocation + " " + _selectedZone +
+          ".jpg";
+      String res = path.toLowerCase().replaceAll(RegExp(" "), "_");
+      //print(res);
+      return res;
+    }
   }
 
   void _onSelectedLocation(String value) {
@@ -94,6 +112,7 @@ class _LocatePageState extends State<LocatePage> {
 
   void _onSelectedZone(String value) {
     setState(() => _selectedZone = value);
+    _getImagePath();
   }
 }
 

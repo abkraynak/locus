@@ -26,4 +26,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo/locus_transparent.png
+    - assets/zones/mcarthur_engineering_2nd_floor_west.jpg
+    - assets/zones/mcarthur_engineering_4th_floor.jpg
+    - assets/zones/shalala_student_center_3rd_floor.jpg
+    - assets/zones/blank_floor.jpg
 

@@ -6,7 +6,7 @@ class Device {
   String name;
   int counter;
 
-  Device(int firstRSSI, this.id, this.name, this.counter){
+  Device(int firstRSSI, this.id, this.name, this.counter) {
     RSSIValues = [];
     addRSSIValue(firstRSSI);
   }

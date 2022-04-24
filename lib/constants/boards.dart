@@ -1,0 +1,7 @@
+class Boards {
+  List<String> boardIdentifiers = [
+    "C3435E79-9EAA-AC23-10F0-DFF9AF523A73",
+    "5217B9DA-12F1-5EF6-0FAA-95D9727F5C95",
+    "6436B5C8-37D8-BA76-4471-6CEA27993023",
+  ];
+}

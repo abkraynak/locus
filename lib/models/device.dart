@@ -5,6 +5,8 @@ class Device {
   String id;
   String name;
   int counter;
+  int x;
+  int y;
 
   Device(int firstRSSI, this.id, this.name, this.counter) {
     RSSIValues = [];

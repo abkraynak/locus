@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
 import '../constants/boards.dart';
+import '../constants/positioning.dart';
 import '../functions/bluetooth_scanning.dart';
 import '../models/device.dart';
 
@@ -14,6 +15,8 @@ class ScanActive extends StatefulWidget {
 }
 
 class _ScanActiveState extends State<ScanActive> {
+  bool canTriangulate = false;
+
   @override
   Widget build(BuildContext context) {
     Stream<ScanResult> results = widget.results;
@@ -52,16 +55,58 @@ class _ScanActiveState extends State<ScanActive> {
 
                 if (newDevice &&
                     Boards().boardIdentifiers.contains(signal.id)) {
+                  switch (signal.id) {
+                    case "C3435E79-9EAA-AC23-10F0-DFF9AF523A73":
+                      signal.x = 10;
+                      signal.y = 10;
+                      break;
+
+                    case "5217B9DA-12F1-5EF6-0FAA-95D9727F5C95":
+                      signal.x = 30;
+                      signal.y = 10;
+                      break;
+
+                    case "6436B5C8-37D8-BA76-4471-6CEA27993023":
+                      signal.x = 26;
+                      signal.y = 50;
+                      break;
+
+                    default:
+                      signal.x = 0;
+                      signal.y = 0;
+                      break;
+                  }
+
                   deviceList.add(signal);
+
+
+                }
+                if(deviceList.length == 1) {
+                  canTriangulate = true;
+                }
+                else {
+                  canTriangulate = false;
                 }
               }
 
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    distanceText(getMinDistance(deviceList)),
-                    Text('${deviceList.length} devices in range'),
+                    //distanceText(getMinDistance(deviceList)),
+                    Text(
+                      "${deviceList.length} devices in range",
+                      textScaleFactor: 1.2,
+                    ),
                     ...getDistances(deviceList),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Paddings.hor, vertical: Paddings.ver),
+                        child: canTriangulate
+                            ? Text("User's Position: (x, y)", textScaleFactor: 1.2,)
+                            : Text(
+                                "At least 3 devices in range required to triangulate user's location",
+                                textScaleFactor: 1.2,
+                              ))
                   ]);
             }));
   }
@@ -75,8 +120,6 @@ double getMinDistance(List<Device> deviceList) {
         var deviceDistance = convertSignalToDistance(device.RSSIAverage);
         if (deviceDistance < minDistance) {
           minDistance = deviceDistance;
-
-
         }
       }
     });
@@ -85,7 +128,6 @@ double getMinDistance(List<Device> deviceList) {
 }
 
 List<Widget> getDistances(List<Device> deviceList) {
-  var minDistance = 999.9;
   List<Widget> res = [];
   if (deviceList != null) {
     deviceList.forEach((device) {
@@ -94,21 +136,23 @@ List<Widget> getDistances(List<Device> deviceList) {
         var displayDistance = formatDistanceText(deviceDistance);
         var deviceID = device.id;
         var displayID = deviceID.substring(deviceID.length - 4);
-        res.add(Text("$displayID : $displayDistance feet away"));
+        var deviceRSSI = device.RSSIAverage;
+        var displayX = device.x;
+        var displayY = device.y;
 
-        }
+        res.add(Text(
+            "$displayID ($deviceRSSI) ($displayX, $displayY) : $displayDistance feet away"));
       }
-    );
+    });
   }
   return res;
 }
 
 Text distanceText(double distance) {
   var dist = metersToFeet(distance).toStringAsFixed(2);
-  return Text("$dist feet away",
-      textScaleFactor: 1.5);
+  return Text("$dist feet away", textScaleFactor: 1.5);
 }
 
-String formatDistanceText(double distance){
+String formatDistanceText(double distance) {
   return metersToFeet(distance).toStringAsFixed(2);
 }

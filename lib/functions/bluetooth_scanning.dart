@@ -4,7 +4,7 @@ double convertSignalToDistance(int powerLevel){
   // Convert signal strength to distance (meters)
   
   double measuredPower = -69.0; // BLE
-  double N = 2.0;
+  double N = 3.0;
 
   return pow(10, ((measuredPower - powerLevel) / (10 * N)));
 }

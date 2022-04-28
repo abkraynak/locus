@@ -58,18 +58,18 @@ class _ScanActiveState extends State<ScanActive> {
                     Boards().boardIdentifiers.contains(signal.id)) {
                   switch (signal.id) {
                     case "C3435E79-9EAA-AC23-10F0-DFF9AF523A73":
-                      signal.x = 10;
-                      signal.y = 10;
+                      signal.x = 0;
+                      signal.y = 0;
                       break;
 
                     case "5217B9DA-12F1-5EF6-0FAA-95D9727F5C95":
-                      signal.x = 30;
-                      signal.y = 10;
+                      signal.x = 5;
+                      signal.y = 15;
                       break;
 
                     case "6436B5C8-37D8-BA76-4471-6CEA27993023":
-                      signal.x = 26;
-                      signal.y = 50;
+                      signal.x = 20;
+                      signal.y = 9;
                       break;
 
                     default:
@@ -100,7 +100,7 @@ class _ScanActiveState extends State<ScanActive> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Paddings.hor, vertical: Paddings.ver),
                         child: canTriangulate
-                            ? UserPosition()
+                            ? UserPosition(dist1: convertSignalToDistance(deviceList[0].RSSIAverage), dist2: convertSignalToDistance(deviceList[1].RSSIAverage), dist3: 6,)
                             : Text(
                                 "At least 3 devices in range required to triangulate user's location",
                                 textScaleFactor: 1.2,

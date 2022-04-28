@@ -5,6 +5,7 @@ import '../constants/boards.dart';
 import '../constants/positioning.dart';
 import '../functions/bluetooth_scanning.dart';
 import '../models/device.dart';
+import '../widgets/user_position.dart';
 
 class ScanActive extends StatefulWidget {
   Stream<ScanResult> results;
@@ -78,13 +79,10 @@ class _ScanActiveState extends State<ScanActive> {
                   }
 
                   deviceList.add(signal);
-
-
                 }
-                if(deviceList.length == 1) {
+                if (deviceList.length == 2) {
                   canTriangulate = true;
-                }
-                else {
+                } else {
                   canTriangulate = false;
                 }
               }
@@ -102,7 +100,7 @@ class _ScanActiveState extends State<ScanActive> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Paddings.hor, vertical: Paddings.ver),
                         child: canTriangulate
-                            ? Text("User's Position: (x, y)", textScaleFactor: 1.2,)
+                            ? UserPosition()
                             : Text(
                                 "At least 3 devices in range required to triangulate user's location",
                                 textScaleFactor: 1.2,

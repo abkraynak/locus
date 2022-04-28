@@ -60,7 +60,8 @@ class _ScanActiveState extends State<ScanActive> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     distanceText(getMinDistance(deviceList)),
-                    Text('${deviceList.length} nearby devices'),
+                    Text('${deviceList.length} devices in range'),
+                    ...getDistances(deviceList),
                   ]);
             }));
   }
@@ -74,6 +75,8 @@ double getMinDistance(List<Device> deviceList) {
         var deviceDistance = convertSignalToDistance(device.RSSIAverage);
         if (deviceDistance < minDistance) {
           minDistance = deviceDistance;
+
+
         }
       }
     });
@@ -81,7 +84,31 @@ double getMinDistance(List<Device> deviceList) {
   return minDistance;
 }
 
+List<Widget> getDistances(List<Device> deviceList) {
+  var minDistance = 999.9;
+  List<Widget> res = [];
+  if (deviceList != null) {
+    deviceList.forEach((device) {
+      if (device.RSSIAverage != null) {
+        var deviceDistance = convertSignalToDistance(device.RSSIAverage);
+        var displayDistance = formatDistanceText(deviceDistance);
+        var deviceID = device.id;
+        var displayID = deviceID.substring(deviceID.length - 4);
+        res.add(Text("$displayID : $displayDistance feet away"));
+
+        }
+      }
+    );
+  }
+  return res;
+}
+
 Text distanceText(double distance) {
-  return Text("${metersToFeet(distance).toStringAsFixed(2)} feet away",
+  var dist = metersToFeet(distance).toStringAsFixed(2);
+  return Text("$dist feet away",
       textScaleFactor: 1.5);
+}
+
+String formatDistanceText(double distance){
+  return metersToFeet(distance).toStringAsFixed(2);
 }

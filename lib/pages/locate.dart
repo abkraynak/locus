@@ -32,69 +32,70 @@ class _LocatePageState extends State<LocatePage> {
     FlutterBlue flutterBlue = FlutterBlue.instance;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(PageTitles.locate),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: isScanning
-            ? Icon(Icons.portable_wifi_off_outlined)
-            : Icon(Icons.wifi_tethering_outlined),
-        tooltip: isScanning ? 'Stop Scan' : 'Scan',
-        onPressed: () {
-          setState(() {
-            isScanning = toggleScan(isScanning, flutterBlue);
-          });
-        },
-      ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Paddings.hor, vertical: Paddings.ver),
-            child: isScanning
-                ? ScanActive(results: flutterBlue.scan(allowDuplicates: true))
-                : ScanInactive(),
+        appBar: AppBar(
+          title: Text(PageTitles.locate),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: isScanning
+              ? Icon(Icons.portable_wifi_off_outlined)
+              : Icon(Icons.wifi_tethering_outlined),
+          tooltip: isScanning ? 'Stop Scan' : 'Scan',
+          onPressed: () {
+            setState(() {
+              isScanning = toggleScan(isScanning, flutterBlue);
+            });
+          },
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Paddings.hor, vertical: Paddings.ver),
+                child: isScanning
+                    ? ScanActive(
+                        results: flutterBlue.scan(allowDuplicates: true))
+                    : ScanInactive(),
+              ),
+              DropdownButton(
+                value: _selectedLocation,
+                items: _locations.map((String dropdownStringItem) {
+                  return DropdownMenuItem<String>(
+                    value: dropdownStringItem,
+                    child: Text(dropdownStringItem),
+                  );
+                }).toList(),
+                onChanged: (value) => _onSelectedLocation(value),
+              ),
+              DropdownButton(
+                value: _selectedZone,
+                items: _zones.map((String dropdownStringItem) {
+                  return DropdownMenuItem<String>(
+                    value: dropdownStringItem,
+                    child: Text(dropdownStringItem),
+                  );
+                }).toList(),
+                onChanged: (value) => _onSelectedZone(value),
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: Paddings.logoVer, horizontal: Paddings.logoHor),
+                  child: Container(
+                    child: Image.asset(_getImagePath()),
+                  )),
+            ],
           ),
-          DropdownButton(
-            value: _selectedLocation,
-            items: _locations.map((String dropdownStringItem) {
-              return DropdownMenuItem<String>(
-                value: dropdownStringItem,
-                child: Text(dropdownStringItem),
-              );
-            }).toList(),
-            onChanged: (value) => _onSelectedLocation(value),
-          ),
-          DropdownButton(
-            value: _selectedZone,
-            items: _zones.map((String dropdownStringItem) {
-              return DropdownMenuItem<String>(
-                value: dropdownStringItem,
-                child: Text(dropdownStringItem),
-              );
-            }).toList(),
-            onChanged: (value) => _onSelectedZone(value),
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: Paddings.logoVer, horizontal: Paddings.logoHor),
-              child: Container(
-                child: Image.asset(_getImagePath()),
-              )),
-        ],
-      ),
-    );
+        ));
   }
 
   String _getImagePath() {
-    if (_selectedZone == "Select zone"){
+    if (_selectedZone == "Select zone") {
       String p = "assets/zones/blank_floor.jpg";
       //print(p);
       return p;
-    }
-    else {
-      String path = "assets/zones/" + _selectedLocation + " " + _selectedZone +
-          ".jpg";
+    } else {
+      String path =
+          "assets/zones/" + _selectedLocation + " " + _selectedZone + ".jpg";
       String res = path.toLowerCase().replaceAll(RegExp(" "), "_");
       //print(res);
       return res;

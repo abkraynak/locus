@@ -80,7 +80,7 @@ class _ScanActiveState extends State<ScanActive> {
 
                   deviceList.add(signal);
                 }
-                if (deviceList.length == 2) {
+                if (deviceList.length == 3) {
                   canTriangulate = true;
                 } else {
                   canTriangulate = false;
@@ -100,7 +100,7 @@ class _ScanActiveState extends State<ScanActive> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Paddings.hor, vertical: Paddings.ver),
                         child: canTriangulate
-                            ? UserPosition(dist1: convertSignalToDistance(deviceList[0].RSSIAverage), dist2: convertSignalToDistance(deviceList[1].RSSIAverage), dist3: 6,)
+                            ? UserPosition(dist1: convertSignalToDistance(deviceList[0].RSSIAverage), dist2: convertSignalToDistance(deviceList[1].RSSIAverage), dist3: convertSignalToDistance(deviceList[2].RSSIAverage),)
                             : Text(
                                 "At least 3 devices in range required to triangulate user's location",
                                 textScaleFactor: 1.2,

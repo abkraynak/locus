@@ -17,6 +17,7 @@ class ScanActive extends StatefulWidget {
 
 class _ScanActiveState extends State<ScanActive> {
   bool canTriangulate = false;
+  bool plural = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +45,11 @@ class _ScanActiveState extends State<ScanActive> {
                     element.addRSSIValue(signal.RSSILast);
                     element.name = signal.name;
                     newDevice = false;
+                    element.counter = 0;
                   } else {
                     element.counter++;
-                    if (element.counter > 50) {
+                    if (element.counter > 360) {
+                      // remove if out of range
                       toRemove.add(element);
                     }
                   }
@@ -85,26 +88,46 @@ class _ScanActiveState extends State<ScanActive> {
                 } else {
                   canTriangulate = false;
                 }
+
+                if (deviceList.length == 1) {
+                  plural = false;
+                } else {
+                  plural = true;
+                }
               }
 
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //distanceText(getMinDistance(deviceList)),
-                    Text(
-                      "${deviceList.length} devices in range",
-                      textScaleFactor: 1.2,
-                    ),
+                    plural
+                        ? Text(
+                            "${deviceList.length} devices in range",
+                            textScaleFactor: 1.5,
+                          )
+                        : Text(
+                            "${deviceList.length} device in range",
+                            textScaleFactor: 1.5,
+                          ),
                     ...getDistances(deviceList),
-                    Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Paddings.hor, vertical: Paddings.ver),
-                        child: canTriangulate
-                            ? UserPosition(dist1: convertSignalToDistance(deviceList[0].RSSIAverage), dist2: convertSignalToDistance(deviceList[1].RSSIAverage), dist3: convertSignalToDistance(deviceList[2].RSSIAverage),)
-                            : Text(
-                                "At least 3 devices in range required to triangulate user's location",
-                                textScaleFactor: 1.2,
-                              ))
+                    Center(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                          canTriangulate
+                              ? UserPosition(
+                                  dist1: convertSignalToDistance(
+                                      deviceList[0].RSSIAverage),
+                                  dist2: convertSignalToDistance(
+                                      deviceList[1].RSSIAverage),
+                                  dist3: convertSignalToDistance(
+                                      deviceList[2].RSSIAverage),
+                                )
+                              : Text(
+                                  "At least 3 devices in range required to triangulate user's location",
+                                  textScaleFactor: 1.2,
+                                )
+                        ])),
                   ]);
             }));
   }
@@ -134,12 +157,15 @@ List<Widget> getDistances(List<Device> deviceList) {
         var displayDistance = formatDistanceText(deviceDistance);
         var deviceID = device.id;
         var displayID = deviceID.substring(deviceID.length - 4);
-        var deviceRSSI = device.RSSIAverage;
+        // var deviceRSSI = device.RSSIAverage;
         var displayX = device.x;
         var displayY = device.y;
+        var lastRefresh = device.counter;
 
         res.add(Text(
-            "$displayID ($deviceRSSI) ($displayX, $displayY) : $displayDistance feet away"));
+          "$displayID ($displayX, $displayY) ($lastRefresh) : $displayDistance feet away",
+          textScaleFactor: 1.2,
+        ));
       }
     });
   }

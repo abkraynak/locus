@@ -27,8 +27,8 @@ class _UserPositionState extends State<UserPosition> {
     double r2 = widget.dist2;
     double r3 = widget.dist3;
 
-    double x = getUserXPosition(x1, y1, r1, x2, y2, r2, x3, y3, r3);
-    double y = getUserYPosition(x1, y1, r1, x2, y2, r2, x3, y3, r3);
+    var x = getUserXPosition(x1, y1, r1, x2, y2, r2, x3, y3, r3).toStringAsFixed(2);
+    var y = getUserYPosition(x1, y1, r1, x2, y2, r2, x3, y3, r3).toStringAsFixed(2);
 
     return Center(
         child: Column(

@@ -49,40 +49,46 @@ class _LocatePageState extends State<LocatePage> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Paddings.hor, vertical: Paddings.ver),
-                child: isScanning
-                    ? ScanActive(
-                        results: flutterBlue.scan(allowDuplicates: true))
-                    : ScanInactive(),
-              ),
-              DropdownButton(
-                value: _selectedLocation,
-                items: _locations.map((String dropdownStringItem) {
-                  return DropdownMenuItem<String>(
-                    value: dropdownStringItem,
-                    child: Text(dropdownStringItem),
-                  );
-                }).toList(),
-                onChanged: (value) => _onSelectedLocation(value),
-              ),
-              DropdownButton(
-                value: _selectedZone,
-                items: _zones.map((String dropdownStringItem) {
-                  return DropdownMenuItem<String>(
-                    value: dropdownStringItem,
-                    child: Text(dropdownStringItem),
-                  );
-                }).toList(),
-                onChanged: (value) => _onSelectedZone(value),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  DropdownButton(
+                    value: _selectedLocation,
+                    items: _locations.map((String dropdownStringItem) {
+                      return DropdownMenuItem<String>(
+                        value: dropdownStringItem,
+                        child: Text(dropdownStringItem),
+                      );
+                    }).toList(),
+                    onChanged: (value) => _onSelectedLocation(value),
+                  ),
+                  DropdownButton(
+                    value: _selectedZone,
+                    items: _zones.map((String dropdownStringItem) {
+                      return DropdownMenuItem<String>(
+                        value: dropdownStringItem,
+                        child: Text(dropdownStringItem),
+                      );
+                    }).toList(),
+                    onChanged: (value) => _onSelectedZone(value),
+                  ),
+                ],
               ),
               Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: Paddings.logoVer, horizontal: Paddings.logoHor),
                   child: Container(
                     child: Image.asset(_getImagePath()),
-                  )),
+                  )
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Paddings.hor, vertical: Paddings.ver),
+                child: isScanning
+                    ? ScanActive(
+                    results: flutterBlue.scan(allowDuplicates: true))
+                    : ScanInactive(),
+              ),
             ],
           ),
         ));

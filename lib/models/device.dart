@@ -16,7 +16,7 @@ class Device {
   void addRSSIValue(int value) {
     this.RSSILast = value;
     RSSIValues.add(value);
-    if (RSSIValues.length > 10) {
+    if (RSSIValues.length > 20) {
       RSSIValues.removeAt(0);
     }
     calculateRSSIAverage();

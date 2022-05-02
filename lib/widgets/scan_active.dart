@@ -61,18 +61,18 @@ class _ScanActiveState extends State<ScanActive> {
                     Boards().boardIdentifiers.contains(signal.id)) {
                   switch (signal.id) {
                     case "C3435E79-9EAA-AC23-10F0-DFF9AF523A73":
-                      signal.x = 0;
-                      signal.y = 0;
+                      signal.x = 5;
+                      signal.y = 1;
                       break;
 
                     case "5217B9DA-12F1-5EF6-0FAA-95D9727F5C95":
-                      signal.x = 5;
-                      signal.y = 15;
+                      signal.x = 6;
+                      signal.y = 1;
                       break;
 
                     case "6436B5C8-37D8-BA76-4471-6CEA27993023":
                       signal.x = 20;
-                      signal.y = 9;
+                      signal.y = 10;
                       break;
 
                     default:
@@ -123,10 +123,15 @@ class _ScanActiveState extends State<ScanActive> {
                                   dist3: convertSignalToDistance(
                                       deviceList[2].RSSIAverage),
                                 )
-                              : Text(
-                                  "At least 3 devices in range required to triangulate user's location",
-                                  textScaleFactor: 1.2,
-                                )
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Paddings.hor,
+                                      vertical: Paddings.ver),
+                                  child: Text(
+                                    "At least 3 devices in range required to triangulate user's location",
+                                    textAlign: TextAlign.center,
+                                    textScaleFactor: 1.2,
+                                  ))
                         ])),
                   ]);
             }));
@@ -153,19 +158,39 @@ List<Widget> getDistances(List<Device> deviceList) {
   if (deviceList != null) {
     deviceList.forEach((device) {
       if (device.RSSIAverage != null) {
-        var deviceDistance = convertSignalToDistance(device.RSSIAverage);
-        var displayDistance = formatDistanceText(deviceDistance);
-        var deviceID = device.id;
-        var displayID = deviceID.substring(deviceID.length - 4);
-        // var deviceRSSI = device.RSSIAverage;
+        var displayDistance =
+            formatDistanceText(convertSignalToDistance(device.RSSIAverage));
+        var displayID = device.id.substring(device.id.length - 4);
         var displayX = device.x;
         var displayY = device.y;
-        var lastRefresh = device.counter;
+        var lastRefresh = (device.counter / 12).toStringAsFixed(0);
 
-        res.add(Text(
-          "$displayID ($displayX, $displayY) ($lastRefresh) : $displayDistance feet away",
-          textScaleFactor: 1.2,
-        ));
+        if (double.parse(displayDistance) <= 0.75){
+          print("send alert");
+        }
+
+        res.add(Padding(
+            padding: EdgeInsets.symmetric(
+                vertical: Paddings.listVer, horizontal: Paddings.listHor),
+            child: Center(
+                child: Column(children: <Widget>[
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "$displayID",
+                      textScaleFactor: 1.2,
+                    ),
+                    Text(
+                      "$displayDistance feet away",
+                      textScaleFactor: 1.2,
+                    ),
+                    Text(
+                      "${lastRefresh}s",
+                      textScaleFactor: 1.2,
+                    )
+                  ]),
+            ]))));
       }
     });
   }

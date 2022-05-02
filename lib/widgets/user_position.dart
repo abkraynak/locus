@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import '../constants/positioning.dart';
+
 class UserPosition extends StatefulWidget {
   double dist1;
   double dist2;
@@ -34,7 +36,10 @@ class _UserPositionState extends State<UserPosition> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("User's Position ($x, $y)", textScaleFactor: 1.2,),
+            Padding(padding: EdgeInsets.symmetric(
+                horizontal: Paddings.hor, vertical: Paddings.ver)),
+            Text("Your Position", textScaleFactor: 1.4,),
+            Text("($x, $y)", textScaleFactor: 1.8,),
           ],
         ));
   }

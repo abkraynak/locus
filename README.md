@@ -1,16 +1,14 @@
-# locus
+# Locus - Location Detection and Navigation
 
-A new Flutter application.
+![](assets/logo/locus_transparent.png)
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
+Enhance indoor location tracking and wayfinding through the Locus mobile application and Bluetooth mesh network. 
+With small Locus devices placed strategically around a space, mobile application users can view their precise position - down to the specific floor and room in a building.
 
-A few resources to get you started if this is your first Flutter project:
+![](images/locate_screenshot_phone_frame.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## License
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is licensed under MIT license. See the [LICENSE](LICENSE) file for more details.

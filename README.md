@@ -11,4 +11,4 @@ With small Locus devices placed strategically around a space, mobile application
 
 ## License
 
-This project is licensed under MIT license. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under GPL-3.0 license. See the [LICENSE](LICENSE) file for more details.
